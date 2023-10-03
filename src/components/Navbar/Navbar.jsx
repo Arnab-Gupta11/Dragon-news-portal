@@ -3,7 +3,14 @@ import user from "../../assets/user.png";
 const Navbar = () => {
   const link = (
     <>
-      <NavLink className="mr-5 text-[#706F6F] text-lg">Home</NavLink>
+      <NavLink
+        to={"/"}
+        className={({ isActive, isPending }) =>
+          isPending ? "pending" : isActive ? "text-pink-600 mr-5 text-lg underline" : "mr-5 text-[#706F6F] text-lg"
+        }
+      >
+        Home
+      </NavLink>
       <NavLink className="mr-5 text-[#706F6F] text-lg">About</NavLink>
       <NavLink className="mr-5 text-[#706F6F] text-lg">Career</NavLink>
     </>
