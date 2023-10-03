@@ -1,7 +1,18 @@
+import Banner from "../../components/Banner/Banner";
+import Header from "../../components/Header/Header";
+import Navbar from "../../components/Navbar/Navbar";
+
 const Home = () => {
   return (
     <div>
-      <h2 className="font-poppins">This is Home</h2>
+      <Header></Header>
+      <Banner></Banner>
+      <Navbar></Navbar>
+      <div className="grid grid-cols-4 gap-5">
+        <div className="border"></div>
+        <div className="col-span-2 border-2"></div>
+        <div className="border"></div>
+      </div>
     </div>
   );
 };
