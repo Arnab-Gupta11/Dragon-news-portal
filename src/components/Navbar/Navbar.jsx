@@ -1,5 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
-import user from "../../assets/user.png";
+import avatar from "../../assets/user.png";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProviders";
 const Navbar = () => {
   const link = (
     <>
@@ -15,9 +17,20 @@ const Navbar = () => {
       <NavLink className="mr-5 text-[#706F6F] text-lg">Career</NavLink>
     </>
   );
+
+  const { user, logoutUser } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    logoutUser()
+      .then(() => {})
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div>
-      <div className="navbar bg-base-100 mt-6">
+      <div className="navbar pt-6 max-w-screen-xl mx-auto">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -36,26 +49,26 @@ const Navbar = () => {
         <div className="navbar-end">
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-              <div className="w-10 rounded-full">
-                <img src={user} />
-              </div>
+              <div className="w-10 rounded-full">{user ? <img src={user?.photoURL} /> : <img src={avatar} />}</div>
             </label>
             <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
               <li>
-                <a className="justify-between">
-                  Profile
-                  <span className="badge">New</span>
-                </a>
+                <a className="justify-between">{user && user?.displayName}</a>
               </li>
               <li>
-                <a>Settings</a>
-              </li>
-              <li>
-                <a>Logout</a>
+                <Link to={"/"}>
+                  <button onClick={handleLogout}>Logout</button>
+                </Link>
               </li>
             </ul>
           </div>
-          <Link className="btn btn-neutral px-12 rounded-none py-3">Login</Link>
+          {user ? (
+            <span></span>
+          ) : (
+            <Link to={"/login"} className="btn btn-neutral px-12 rounded-none py-3">
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </div>
